@@ -19,4 +19,32 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('errr saving ur gains ' + err))
 })
 
+router.route('/:id').get((req, res) => {
+  Exercise.findById(req.params.id)
+    .then(exercise => res.json(exercise))
+    .catch(err => res.status(400).json('Error: ' + err))
+})
+
+router.route('/:id').delete((req, res) => {
+  Exercise.findByIdAndDelete(req.params.id)
+    .then(exercise => res.json('dee lee teed'))
+    .catch(err => res.status(400).json('Error: ' + err))
+})
+
+router.route('/update/:id').update((req, res) => {
+  Exercise.findById(req.params.id)
+    .then(exercise => {
+      exercise.username = req.body.username;
+      exercise.description = req.body.description;
+      exercise.duration = Number(req.body.duration);
+      exercise.date = Date.parse(req.bodyy.date);
+
+      exercise.save()
+      .then(() => res.json('saved exercisee'))
+      .catch(err => res.status(400).json('errr saving ur gains ' + err))
+
+    })
+    .catch(err => res.status(400).json('Error: ' + err))
+})
+
 module.exports = router;

@@ -18,6 +18,11 @@ connection.once('open', () => {
   console.log('MONGODB ACCESED ! .. 4 ')
 })
 
+const exercisesRouter = require('./routes/exercises')
+const usersRouter = require('./routes/users')
+app.use('/exercises', exercisesRouter)
+app.use('/users', usersRouter)
+
 app.listen(port, () => {
   console.log('Server running on port: ${port}')
 })
